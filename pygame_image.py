@@ -14,19 +14,31 @@ def main():
     kk_img = pg.image.load("fig/3.png")
     kk_img = pg.transform.flip(kk_img,True,False)
     kk_img = pg.transform.rotozoom(kk_img,10,1.0)
+    kk_rct = kk_img.get_rect()
+    kk_rct.center = 300,200
     tmr = 0
     x = 0
     y = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
+        key_lst = pg.key.get_pressed()
+        if key_lst[pg.K_UP]:
+            kk_rct.move_ip((0,-1))
+        if key_lst[pg.K_DOWN]:
+            kk_rct.move_ip((0,+1))
+        if key_lst[pg.K_LEFT]:
+            kk_rct.move_ip((-1,0))
+        if key_lst[pg.K_RIGHT]:
+            kk_rct.move_ip((+1,0))
 
         screen.blit(bg_img, [x, y])
         screen.blit(bg_img_mirror,[x+1600,y])
         screen.blit(bg_img, [x+3200, y])
         screen.blit(bg_img_mirror,[x+4800,y])
+
         x = -(tmr%3200)
-        screen.blit(kk_img,[300,200])
+        screen.blit(kk_img,kk_rct)
         pg.display.update()
         tmr += 1 
         clock.tick(200)
