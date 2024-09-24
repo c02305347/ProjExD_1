@@ -14,15 +14,18 @@ def main():
     kk_img = pg.transform.flip(kk_img,True,False)
     kk_img = pg.transform.rotozoom(kk_img,10,1.0)
     tmr = 0
+    x = 0
+    y = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
-        screen.blit(bg_img, [0, 0])
+        screen.blit(bg_img, [x, y])
+        x = -(tmr%800)
         screen.blit(kk_img,[300,200])
         pg.display.update()
-        tmr += 1        
-        clock.tick(10)
+        tmr += 1 
+        clock.tick(200)
 
 
 if __name__ == "__main__":
